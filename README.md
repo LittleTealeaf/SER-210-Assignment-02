@@ -9,4 +9,8 @@ https://developer.android.com/reference/android/os/Bundle
 
 use https://developer.android.com/reference/android/os/Parcelable
 
+
 why did I not see this before
+
+
+http://hp-api.herokuapp.com/api/characters/d
