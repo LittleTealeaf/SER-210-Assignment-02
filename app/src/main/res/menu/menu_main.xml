@@ -5,5 +5,4 @@
         android:title="Share"
         android:icon="@drawable/ic_share_light"
         app:showAsAction="always" />
-
 </menu>

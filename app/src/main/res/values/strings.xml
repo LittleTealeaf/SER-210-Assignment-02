@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Harry Potter Characters</string>
+    <string name="gryffindor">Gryffindor</string>
+    <string name="hufflepuff">Hufflepuff</string>
+    <string name="slytherin">Slytherin</string>
+    <string name="ravenclaw">Ravenclaw</string>
+    <string name="professors">Professors</string>
+    <string name="non_wizards">Non Wizards</string>
 </resources>
