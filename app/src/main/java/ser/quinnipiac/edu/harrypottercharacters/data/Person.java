@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class HarryPotterCharacter implements Serializable {
+public class Person implements Serializable {
 
     private final String name;
     private final String[] alternateNames;
@@ -36,7 +36,7 @@ public class HarryPotterCharacter implements Serializable {
 .herokuapp.com/images/harry.jpg"}
  */
 
-    public HarryPotterCharacter(JSONObject jsonObject) throws JSONException {
+    public Person(JSONObject jsonObject) throws JSONException {
         name = jsonObject.getString("name");
         alternateNames = convertJSONtoStringArray(jsonObject.getJSONArray("alternate_names"));
         species = jsonObject.getString("species");
