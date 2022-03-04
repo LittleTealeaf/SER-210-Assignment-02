@@ -1,12 +1,15 @@
 package ser.quinnipiac.edu.harrypottercharacters.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Person  implements Serializable {
+public class Character implements Parcelable {
 
     private final String name;
     private final String[] alternateNames;
@@ -36,14 +39,18 @@ public class Person  implements Serializable {
 .herokuapp.com/images/harry.jpg"}
  */
 
-    public Person(JSONObject jsonObject) throws JSONException {
+    public Character(JSONObject jsonObject) throws JSONException {
         name = jsonObject.getString("name");
         alternateNames = convertJSONtoStringArray(jsonObject.getJSONArray("alternate_names"));
         species = jsonObject.getString("species");
         gender = jsonObject.getString("gender");
         house = jsonObject.getString("house");
         dateOfBirth = jsonObject.getString("dateOfBirth");
-        yearOfBirth = jsonObject.getInt("yearOfBirth");
+        int yearOfBirth = 0;
+        try {
+            yearOfBirth = jsonObject.getInt("yearOfBirth");
+        } catch(Exception e) {}
+        this.yearOfBirth = yearOfBirth;
         wizard = jsonObject.getBoolean("wizard");
         ancestry = jsonObject.getString("ancestry");
         eyeColour = jsonObject.getString("eyeColour");
@@ -57,6 +64,40 @@ public class Person  implements Serializable {
         alive = jsonObject.getBoolean("alive");
         image = jsonObject.getString("image");
     }
+
+    protected Character(Parcel in) {
+        name = in.readString();
+        alternateNames = in.createStringArray();
+        species = in.readString();
+        gender = in.readString();
+        house = in.readString();
+        dateOfBirth = in.readString();
+        yearOfBirth = in.readInt();
+        wizard = in.readByte() != 0;
+        ancestry = in.readString();
+        eyeColour = in.readString();
+        hairColour = in.readString();
+        wand = in.readParcelable(Wand.class.getClassLoader());
+        patronus = in.readString();
+        hogwartsStudent = in.readByte() != 0;
+        hogwartsStaff = in.readByte() != 0;
+        actor = in.readString();
+        alternateActors = in.createStringArray();
+        alive = in.readByte() != 0;
+        image = in.readString();
+    }
+
+    public static final Creator<Character> CREATOR = new Creator<Character>() {
+        @Override
+        public Character createFromParcel(Parcel in) {
+            return new Character(in);
+        }
+
+        @Override
+        public Character[] newArray(int size) {
+            return new Character[size];
+        }
+    };
 
     private static String[] convertJSONtoStringArray(JSONArray array) throws JSONException {
         String[] strings = new String[array.length()];
@@ -140,5 +181,33 @@ public class Person  implements Serializable {
 
     public String getImage() {
         return image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeStringArray(alternateNames);
+        parcel.writeString(species);
+        parcel.writeString(gender);
+        parcel.writeString(house);
+        parcel.writeString(dateOfBirth);
+        parcel.writeInt(yearOfBirth);
+        parcel.writeByte((byte) (wizard ? 1 : 0));
+        parcel.writeString(ancestry);
+        parcel.writeString(eyeColour);
+        parcel.writeString(hairColour);
+        parcel.writeParcelable(wand, i);
+        parcel.writeString(patronus);
+        parcel.writeByte((byte) (hogwartsStudent ? 1 : 0));
+        parcel.writeByte((byte) (hogwartsStaff ? 1 : 0));
+        parcel.writeString(actor);
+        parcel.writeStringArray(alternateActors);
+        parcel.writeByte((byte) (alive ? 1 : 0));
+        parcel.writeString(image);
     }
 }
