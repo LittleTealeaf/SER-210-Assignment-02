@@ -1,4 +1,4 @@
-package ser.quinnipiac.edu.hpchars;
+package ser.quinnipiac.edu.harrypottercharacters;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="ser.quinnipiac.edu.hpchars">
+        package="ser.quinnipiac.edu.harrypottercharacters">
 
     <application
             android:allowBackup="true"
@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.HarryPotterCharacters">
         <activity
-                android:name=".MainActivity"
+                android:name="ser.quinnipiac.edu.harrypottercharacters.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
