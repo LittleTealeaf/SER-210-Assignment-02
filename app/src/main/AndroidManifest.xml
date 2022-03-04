@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.HarryPotterCharacters">
         <activity
-                android:name="ser.quinnipiac.edu.harrypottercharacters.MainActivity"
+                android:name="ser.quinnipiac.edu.harrypottercharacters.app.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
