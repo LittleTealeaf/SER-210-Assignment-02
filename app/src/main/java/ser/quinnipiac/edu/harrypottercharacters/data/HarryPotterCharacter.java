@@ -8,9 +8,6 @@ import java.io.Serializable;
 
 public class HarryPotterCharacter implements Serializable {
 
-    public static String NAME, ALTERNATE_NAMES, SPECIES, GENDER, HOUSE, DATE_OF_BIRTH, YEAR_OF_BIRTH, WIZARD, ANCESTRY, EYE_COLOUR, HAIR_COLOUR,
-            WAND, PATRONUS, HOGWARTS_STUDENT, HOGWARTS_STAFF, ACTOR, ALTERNATE_ACTORS, ALIVE, IMAGE;
-
     private String name;
     private String[] alternateNames;
     private String species;
