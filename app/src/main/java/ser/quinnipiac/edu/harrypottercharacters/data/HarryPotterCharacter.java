@@ -8,25 +8,25 @@ import java.io.Serializable;
 
 public class HarryPotterCharacter implements Serializable {
 
-    private String name;
-    private String[] alternateNames;
-    private String species;
-    private String gender;
-    private String house;
-    private String dateOfBirth;
-    private int yearOfBirth;
-    private boolean wizard;
-    private String ancestry;
-    private String eyeColour;
-    private String hairColour;
-    private Wand wand;
-    private String patronus;
-    private boolean hogwartsStudent;
-    private boolean hogwartsStaff;
-    private String actor;
-    private String[] alternateActors;
-    private boolean alive;
-    private String image;
+    private final String name;
+    private final String[] alternateNames;
+    private final String species;
+    private final String gender;
+    private final String house;
+    private final String dateOfBirth;
+    private final int yearOfBirth;
+    private final boolean wizard;
+    private final String ancestry;
+    private final String eyeColour;
+    private final String hairColour;
+    private final Wand wand;
+    private final String patronus;
+    private final boolean hogwartsStudent;
+    private final boolean hogwartsStaff;
+    private final String actor;
+    private final String[] alternateActors;
+    private final boolean alive;
+    private final String image;
 
 
 /*
@@ -48,7 +48,7 @@ public class HarryPotterCharacter implements Serializable {
         ancestry = jsonObject.getString("ancestry");
         eyeColour = jsonObject.getString("eyeColour");
         hairColour = jsonObject.getString("hairColour");
-//        wand = new Wand(jsonObject.getJSONObject("wand"));
+        wand = new Wand(jsonObject.getJSONObject("wand"));
         patronus = jsonObject.getString("patronus");
         hogwartsStudent = jsonObject.getBoolean("hogwartsStudent");
         hogwartsStaff = jsonObject.getBoolean("hogwartsStaff");
