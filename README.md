@@ -5,12 +5,6 @@ Rest API Project
 
 
 ### Dev Notes
-https://developer.android.com/reference/android/os/Bundle
+My current plan is to use the [Parcelable](https://developer.android.com/reference/android/os/Parcelable) interface to store objects within [Bundles](https://developer.android.com/reference/android/os/Bundle).
 
-use https://developer.android.com/reference/android/os/Parcelable
-
-
-why did I not see this before
-
-
-http://hp-api.herokuapp.com/api/characters/d
+The API I am using is http://hp-api.herokuapp.com/
