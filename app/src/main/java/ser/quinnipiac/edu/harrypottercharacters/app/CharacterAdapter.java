@@ -73,4 +73,5 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             ((ImageView) itemView.findViewById(R.id.character_image)).setImageBitmap(bitmap);
         }
     }
+    //TODO: save images in cache
 }
