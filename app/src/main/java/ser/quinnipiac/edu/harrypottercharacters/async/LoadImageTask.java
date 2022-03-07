@@ -16,14 +16,14 @@ public class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... strings) {
-        Bitmap mIcon11 = null;
+        Bitmap bitmap = null;
         try {
             InputStream in = new java.net.URL(strings[0]).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
+            bitmap = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mIcon11;
+        return bitmap;
     }
 
     @Override
