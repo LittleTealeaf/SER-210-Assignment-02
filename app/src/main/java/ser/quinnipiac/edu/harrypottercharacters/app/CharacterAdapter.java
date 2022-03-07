@@ -61,6 +61,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         public void bindTo(Character person) {
             textName.setText(person.getName());
 
+            ((ImageView) itemView.findViewById(R.id.character_image)).setImageBitmap(null);
+
             if(!person.getImage().equals("")) {
                 new LoadImageTask(this).execute(person.getImage().replace("http://","https://"));
             }
