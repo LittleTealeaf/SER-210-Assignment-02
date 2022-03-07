@@ -11,13 +11,25 @@
         app:cardPreventCornerOverlap="true"
         android:layout_margin="5dp"
         >
-    <LinearLayout
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
         android:orientation="vertical" >
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:id="@+id/character_image"
+                android:src="@drawable/ic_stock_image_foreground"
+                />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:fontFamily="casual"
+                android:textColor="@color/black"
                 android:id="@+id/character_text_name"/>
-    </LinearLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>
