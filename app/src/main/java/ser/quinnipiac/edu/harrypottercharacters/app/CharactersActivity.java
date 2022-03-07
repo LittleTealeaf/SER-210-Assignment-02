@@ -9,10 +9,9 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import ser.quinnipiac.edu.harrypottercharacters.R;
-import ser.quinnipiac.edu.harrypottercharacters.data.FetchCharactersTask;
+import ser.quinnipiac.edu.harrypottercharacters.async.FetchCharactersTask;
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
 public class CharactersActivity extends AppCompatActivity implements FetchCharactersTask.FetchCharactersListener {

@@ -1,9 +1,11 @@
 package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ser.quinnipiac.edu.harrypottercharacters.R;
+import ser.quinnipiac.edu.harrypottercharacters.async.LoadImageTask;
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder> {
@@ -40,7 +43,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         return mCharacterList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, LoadImageTask.LoadImageListener {
         private TextView textName;
 
         public ViewHolder(@NonNull View itemView) {
@@ -57,6 +60,15 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
         public void bindTo(Character person) {
             textName.setText(person.getName());
+
+            if(!person.getImage().equals("")) {
+                new LoadImageTask(this).execute(person.getImage().replace("http://","https://"));
+            }
+        }
+
+        @Override
+        public void onLoadImage(Bitmap bitmap) {
+            ((ImageView) itemView.findViewById(R.id.character_image)).setImageBitmap(bitmap);
         }
     }
 }

@@ -1,4 +1,4 @@
-package ser.quinnipiac.edu.harrypottercharacters.data;
+package ser.quinnipiac.edu.harrypottercharacters.async;
 
 import android.os.AsyncTask;
 
@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
 public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Character>> {
 
