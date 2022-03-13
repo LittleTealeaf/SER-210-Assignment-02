@@ -5,8 +5,10 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
+
 
     private final LoadImageListener listener;
 

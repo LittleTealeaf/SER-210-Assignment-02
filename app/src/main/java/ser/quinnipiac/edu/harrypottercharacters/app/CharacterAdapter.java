@@ -2,6 +2,7 @@ package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,10 @@ import ser.quinnipiac.edu.harrypottercharacters.R;
 import ser.quinnipiac.edu.harrypottercharacters.async.LoadImageTask;
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
+
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder> {
+
+    private LruCache<String,Bitmap> imageCache;
 
     private final LayoutInflater mInflater;
     private final List<Character> mCharacterList;
@@ -25,12 +29,23 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     public CharacterAdapter(Context context, List<Character> characterList) {
         mInflater = LayoutInflater.from(context);
         mCharacterList = characterList;
+
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 8;
+
+        imageCache = new LruCache<String,Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(mInflater.inflate(R.layout.list_character_item, parent, false));
+        return new ViewHolder(this,mInflater.inflate(R.layout.list_character_item, parent, false));
     }
 
     @Override
@@ -43,14 +58,21 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         return mCharacterList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, LoadImageTask.LoadImageListener {
-        private TextView textName;
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ViewHolder(@NonNull View itemView) {
+        CharacterAdapter adapter;
+
+        TextView textName;
+        ImageView imageView;
+
+        public ViewHolder(CharacterAdapter adapter, @NonNull View itemView) {
             super(itemView);
+            this.adapter = adapter;
 
             itemView.setOnClickListener(this);
             textName = itemView.findViewById(R.id.character_text_name);
+
+            imageView = itemView.findViewById(R.id.character_image);
         }
 
         @Override
@@ -61,17 +83,21 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         public void bindTo(Character person) {
             textName.setText(person.getName());
 
-            ((ImageView) itemView.findViewById(R.id.character_image)).setImageBitmap(null);
+            imageView.setImageBitmap(null);
 
             if(!person.getImage().equals("")) {
-                new LoadImageTask(this).execute(person.getImage().replace("http://","https://"));
+                String url = person.getImage().replace("http://","https://");
+                Bitmap cache = adapter.imageCache.get(url);
+                if(cache != null) {
+                    imageView.setImageBitmap(adapter.imageCache.get(url));
+                } else {
+                    new LoadImageTask((bitmap -> {
+                        imageView.setImageBitmap(bitmap);
+                        adapter.imageCache.put(url,bitmap);
+                    })).execute(url);
+                }
             }
         }
 
-        @Override
-        public void onLoadImage(Bitmap bitmap) {
-            ((ImageView) itemView.findViewById(R.id.character_image)).setImageBitmap(bitmap);
-        }
     }
-    //TODO: save images in cache
 }
