@@ -62,7 +62,7 @@ public class Character implements Parcelable {
         actor = jsonObject.getString("actor");
         alternateActors = convertJSONtoStringArray(jsonObject.getJSONArray("alternate_actors"));
         alive = jsonObject.getBoolean("alive");
-        image = jsonObject.getString("image");
+        image = jsonObject.getString("image").replace("http://","https://");
     }
 
     protected Character(Parcel in) {

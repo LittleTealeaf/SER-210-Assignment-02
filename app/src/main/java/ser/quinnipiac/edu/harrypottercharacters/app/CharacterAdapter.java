@@ -1,6 +1,7 @@
 package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.LruCache;
@@ -23,11 +24,13 @@ import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder> {
 
     private final LruCache<String,Bitmap> imageCache;
+    private final Context context;
 
     private final LayoutInflater mInflater;
     private final List<Character> mCharacterList;
 
     public CharacterAdapter(Context context, List<Character> characterList) {
+        this.context = context;
         mInflater = LayoutInflater.from(context);
         mCharacterList = characterList;
 
@@ -59,7 +62,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         return mCharacterList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, LoadImageTask.LoadImageListener {
+
+        Character character;
 
         CharacterAdapter adapter;
 
@@ -79,25 +84,24 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
         @Override
         public void onClick(View view) {
-
+            Intent intent = new Intent(adapter.context,CharacterDetailsActivity.class);
+            intent.putExtra(CharacterDetailsActivity.KEY_CHARACTER, character);
+            adapter.context.startActivity(intent);
         }
 
-        public void bindTo(Character person) {
-            textName.setText(person.getName());
+        public void bindTo(Character character) {
+            this.character = character;
+            textName.setText(character.getName());
 
             imageView.setImageBitmap(null);
 
-            if(!person.getImage().equals("")) {
+            if(!character.getImage().equals("")) {
 
-                String url = person.getImage().replace("http://","https://");
-                Bitmap cache = adapter.imageCache.get(url);
+                Bitmap cache = adapter.imageCache.get(character.getImage());
                 if(cache != null) {
                     imageView.setImageBitmap(cache);
                 } else {
-                    new LoadImageTask((bitmap -> {
-                        imageView.setImageBitmap(bitmap);
-                        adapter.imageCache.put(url,bitmap);
-                    })).execute(url);
+                    new  LoadImageTask(this).execute(character.getImage());
                 }
                 imageView.setAdjustViewBounds(true);
                 textName.setTextColor(Color.WHITE);
@@ -107,5 +111,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             }
         }
 
+        @Override
+        public void onLoadImage(Bitmap bitmap) {
+            imageView.setImageBitmap(bitmap);
+            adapter.imageCache.put(character.getImage(),bitmap);
+        }
     }
 }
