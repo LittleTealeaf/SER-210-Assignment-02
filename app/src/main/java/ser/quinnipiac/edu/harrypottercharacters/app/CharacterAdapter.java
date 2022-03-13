@@ -66,7 +66,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
         Character character;
 
-        CharacterAdapter adapter;
+        final CharacterAdapter adapter;
 
         final TextView textName;
         final ImageView imageView;
