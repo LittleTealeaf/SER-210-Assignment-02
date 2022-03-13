@@ -66,4 +66,8 @@ public class Wand implements Parcelable {
         parcel.writeString(core);
         parcel.writeDouble(length);
     }
+
+    public boolean exists() {
+        return !(wood.equals("") || core.equals(""));
+    }
 }
