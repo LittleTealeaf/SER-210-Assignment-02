@@ -2,6 +2,7 @@ package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder> {
 
-    private LruCache<String,Bitmap> imageCache;
+    private final LruCache<String,Bitmap> imageCache;
 
     private final LayoutInflater mInflater;
     private final List<Character> mCharacterList;
@@ -87,6 +88,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             imageView.setImageBitmap(null);
 
             if(!person.getImage().equals("")) {
+
                 String url = person.getImage().replace("http://","https://");
                 Bitmap cache = adapter.imageCache.get(url);
                 if(cache != null) {
@@ -97,6 +99,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
                         adapter.imageCache.put(url,bitmap);
                     })).execute(url);
                 }
+                imageView.setAdjustViewBounds(true);
+                textName.setTextColor(Color.WHITE);
+            } else {
+                imageView.setAdjustViewBounds(false);
+                textName.setTextColor(Color.BLACK);
             }
         }
 
