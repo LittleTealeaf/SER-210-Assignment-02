@@ -70,6 +70,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             this.adapter = adapter;
 
             itemView.setOnClickListener(this);
+
             textName = itemView.findViewById(R.id.character_text_name);
 
             imageView = itemView.findViewById(R.id.character_image);
