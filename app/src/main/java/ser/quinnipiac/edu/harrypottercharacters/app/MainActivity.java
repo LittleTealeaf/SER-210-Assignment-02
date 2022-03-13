@@ -1,12 +1,14 @@
 package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.HashMap;
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final Map<Integer,String[]> BUTTON_ENDPOINTS;
     private static final int[] BUTTON_IDS;
+
+    public static boolean DARK_MODE = false;
 
     static {
         BUTTON_ENDPOINTS = new HashMap<Integer,String[]>() {{
@@ -48,7 +52,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_invert_colors:
+//                https://stackoverflow.com/a/61891471/12206859
+                AppCompatDelegate.setDefaultNightMode(DARK_MODE ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

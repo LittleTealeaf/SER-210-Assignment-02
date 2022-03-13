@@ -6,4 +6,6 @@
     <string name="ravenclaw">Ravenclaw</string>
     <string name="professors">Professors</string>
     <string name="non_wizards">Non Wizards</string>
+    <string name="share">Share</string>
+    <string name="invert_colors">Invert Colors</string>
 </resources>
