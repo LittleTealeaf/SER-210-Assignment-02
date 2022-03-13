@@ -42,7 +42,7 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
         mRecyclerView.setAdapter(mAdapter);
 
         if(savedInstanceState != null) {
-
+            onFetchCharacters(savedInstanceState.getParcelableArrayList(CHARACTER_LIST));
         } else {
             String[] endpoint = getIntent().getStringArrayExtra(API_ENDPOINT);
             new FetchCharactersTask(this).execute(endpoint);

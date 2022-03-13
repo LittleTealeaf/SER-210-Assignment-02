@@ -29,6 +29,7 @@
                 android:layout_gravity="bottom|left"
                 android:textSize="27dp"
                 android:textStyle="bold"
+                android:layout_margin="10dp"
                 android:fontFamily="casual"
                 android:textColor="@color/white"
                 android:id="@+id/character_text_name"/>
