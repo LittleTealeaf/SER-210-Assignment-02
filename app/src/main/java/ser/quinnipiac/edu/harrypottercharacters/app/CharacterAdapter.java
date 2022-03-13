@@ -89,7 +89,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
                 String url = person.getImage().replace("http://","https://");
                 Bitmap cache = adapter.imageCache.get(url);
                 if(cache != null) {
-                    imageView.setImageBitmap(adapter.imageCache.get(url));
+                    imageView.setImageBitmap(cache);
                 } else {
                     new LoadImageTask((bitmap -> {
                         imageView.setImageBitmap(bitmap);
