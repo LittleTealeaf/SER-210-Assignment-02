@@ -27,14 +27,13 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
 
     private final ArrayList<Character> characterList = new ArrayList<>();
     private CharacterAdapter mAdapter;
-    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characters);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mAdapter = new CharacterAdapter(this, characterList);
