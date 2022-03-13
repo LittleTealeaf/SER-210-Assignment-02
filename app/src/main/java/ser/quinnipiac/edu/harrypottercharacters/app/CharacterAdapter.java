@@ -68,8 +68,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
         CharacterAdapter adapter;
 
-        TextView textName;
-        ImageView imageView;
+        final TextView textName;
+        final ImageView imageView;
 
         public ViewHolder(CharacterAdapter adapter, @NonNull View itemView) {
             super(itemView);
@@ -78,7 +78,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             itemView.setOnClickListener(this);
 
             textName = itemView.findViewById(R.id.character_text_name);
-
             imageView = itemView.findViewById(R.id.character_image);
         }
 
