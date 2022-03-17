@@ -1,14 +1,11 @@
 package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.util.HashMap;
@@ -30,10 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             put(R.id.button_house_ravenclaw, new String[] {"characters","house","ravenclaw"});
             put(R.id.button_house_slytherin, new String[] {"characters","house","slytherin"});
             put(R.id.button_house_professors, new String[] {"characters","staff"});
+            put(R.id.button_house_all, new String[] {"characters"});
         }};
         BUTTON_IDS = new int[] {
                 R.id.button_house_gryffindor, R.id.button_house_slytherin,R.id.button_house_hufflepuff,R.id.button_house_ravenclaw,
-                R.id.button_house_professors,R.id.button_house_nonwizards
+                R.id.button_house_professors,R.id.button_house_all
         };
     }
 
