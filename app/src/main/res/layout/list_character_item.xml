@@ -23,15 +23,34 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_stock_image_foreground"
                 />
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|left"
-                android:textSize="27dp"
-                android:textStyle="bold"
+                android:orientation="vertical"
                 android:layout_margin="10dp"
-                android:fontFamily="casual"
-                android:textColor="@color/white"
-                android:id="@+id/character_text_name"/>
+            >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="27sp"
+                    android:textStyle="bold"
+                    android:fontFamily="casual"
+                    android:textColor="@color/white"
+                    android:id="@+id/character_text_name"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="casual"
+                    android:textColor="@color/white"
+                    android:id="@+id/character_text_house"/>
+
+
+        </LinearLayout>
+
     </FrameLayout>
 </androidx.cardview.widget.CardView>

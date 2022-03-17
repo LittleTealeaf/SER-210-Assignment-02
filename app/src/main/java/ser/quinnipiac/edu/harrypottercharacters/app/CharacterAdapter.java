@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import ser.quinnipiac.edu.harrypottercharacters.R;
@@ -68,7 +70,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
         final CharacterAdapter adapter;
 
+        final TextView[] textViews;
+
         final TextView textName;
+        final TextView textHouse;
         final ImageView imageView;
 
         public ViewHolder(CharacterAdapter adapter, @NonNull View itemView) {
@@ -79,6 +84,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
             textName = itemView.findViewById(R.id.character_text_name);
             imageView = itemView.findViewById(R.id.character_image);
+            textHouse = itemView.findViewById(R.id.character_text_house);
+
+            textViews = new TextView[] {textName, textHouse};
         }
 
         @Override
@@ -91,6 +99,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         public void bindTo(Character character) {
             this.character = character;
             textName.setText(character.getName());
+            textHouse.setText(character.getHouse());
 
             imageView.setImageBitmap(null);
 
@@ -103,10 +112,14 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
                     new  LoadImageTask(this).execute(character.getImage());
                 }
                 imageView.setAdjustViewBounds(true);
-                textName.setTextColor(Color.WHITE);
+                for(TextView view : textViews) {
+                    view.setTextColor(Color.WHITE);
+                }
             } else {
                 imageView.setAdjustViewBounds(false);
-                textName.setTextColor(Color.BLACK);
+                for(TextView view : textViews) {
+                    view.setTextColor(Color.BLACK);
+                }
             }
         }
 
