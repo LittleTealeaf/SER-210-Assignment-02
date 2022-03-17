@@ -2,10 +2,14 @@ package ser.quinnipiac.edu.harrypottercharacters.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +51,31 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
             new FetchCharactersTask(this).execute(endpoint);
         }
 
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (MenuUtil.MENU_FUNCTIONS.getOrDefault(item.getItemId(),(n) -> false).apply(this)) {
+            return true;
+        } else if (id == R.id.menu_share) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, "I'm using the Harry Potter Characters App by Thomas Kwashnak!");
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, null));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
