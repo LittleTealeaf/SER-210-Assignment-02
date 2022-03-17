@@ -61,6 +61,13 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
 
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

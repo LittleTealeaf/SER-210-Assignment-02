@@ -51,8 +51,15 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
             new FetchCharactersTask(this).execute(endpoint);
         }
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override
