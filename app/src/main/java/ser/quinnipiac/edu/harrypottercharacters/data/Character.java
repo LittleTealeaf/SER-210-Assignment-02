@@ -210,4 +210,32 @@ public class Character implements Parcelable {
         parcel.writeByte((byte) (alive ? 1 : 0));
         parcel.writeString(image);
     }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+
+        s.append(name).append("\n");
+        if(alternateNames != null && alternateNames.length > 0) {
+            s.append("Also known as: ");
+            for(int i =0; i < alternateNames.length; i++) {
+                if(i != 0) {
+                    s.append(", ");
+                }
+                s.append(alternateNames[i]);
+            }
+            s.append("\n");
+        }
+        s.append("Played by: ").append(actor);
+        if(alternateActors != null && alternateActors.length > 0) {
+            s.append("Also played by: ");
+            for(int i =0; i < alternateActors.length; i++) {
+                if(i != 0) {
+                    s.append(", ");
+                }
+                s.append(alternateActors[i]);
+            }
+        }
+
+        return s.toString();
+    }
 }

@@ -23,6 +23,8 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
 
     private static final int[] SECTION_WAND;
 
+    private Character character;
+
     static {
         SECTION_WAND = new int[] {
 //                R.id.cd_wand_title
@@ -38,7 +40,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
 
         imageView = findViewById(R.id.cd_image);
 
-        Character character = getIntent().getParcelableExtra(KEY_CHARACTER);
+        character = getIntent().getParcelableExtra(KEY_CHARACTER);
 
         if(!character.getImage().equals("")) {
             new LoadImageTask(this).execute(character.getImage());
@@ -77,7 +79,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         } else if (id == R.id.menu_share) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "I'm using the Harry Potter Characters App by Thomas Kwashnak!");
+            intent.putExtra(Intent.EXTRA_TEXT, "Harry Potter Info!\n" + character.toString());
             intent.setType("text/plain");
             startActivity(Intent.createChooser(intent, null));
         }
