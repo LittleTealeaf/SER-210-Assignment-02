@@ -38,7 +38,7 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        int color = PickColorActivity.fromBundle(getIntent().getExtras()).toArgb();
+        int color = getIntent().getExtras().getInt(PickColorActivity.COLOR);
         findViewById(android.R.id.content).getRootView().setBackgroundColor(color);
         mRecyclerView.setBackgroundColor(color);
 
@@ -84,7 +84,9 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
         int id = item.getItemId();
 
         if (id == R.id.menu_about) {
-            startActivity(new Intent(this, AppInfoActivity.class));
+            Intent intent = new Intent(this, AppInfoActivity.class);
+            intent.putExtra(PickColorActivity.COLOR,getIntent().getExtras().getInt(PickColorActivity.COLOR));
+            startActivity(intent);
         } else if (id == R.id.menu_share) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);

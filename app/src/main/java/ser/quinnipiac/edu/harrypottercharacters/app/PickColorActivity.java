@@ -63,11 +63,7 @@ public class PickColorActivity extends AppCompatActivity implements SeekBar.OnSe
 
     protected void updateColorView() {
         int col = Color.valueOf(r, g, b).toArgb();
-        findViewById(R.id.color_view_preview).setBackgroundColor(col);
-        findViewById(R.id.color_bar_r).setBackgroundColor(col);
-        findViewById(R.id.color_bar_g).setBackgroundColor(col);
-        findViewById(R.id.color_bar_b).setBackgroundColor(col);
-
+        findViewById(android.R.id.content).getRootView().setBackgroundColor(col);
     }
 
     protected void confirm(View view) {

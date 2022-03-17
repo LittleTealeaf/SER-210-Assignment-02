@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static boolean DARK_MODE = false;
 
-    private Color backgroundColor;
+    private Color backgroundcolorold;
+    private int backgroundColor;
 
     static {
         BUTTON_IDS = new int[]{
@@ -62,17 +63,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(savedInstanceState != null) {
-            backgroundColor = PickColorActivity.fromBundle(savedInstanceState);
+            backgroundColor = getIntent().getExtras().getInt(PickColorActivity.COLOR);;
         } else {
-            backgroundColor = Color.valueOf(Color.WHITE);
+            backgroundColor = Color.WHITE;
         }
 
-        findViewById(android.R.id.content).getRootView().setBackgroundColor(backgroundColor.toArgb());
+        findViewById(android.R.id.content).getRootView().setBackgroundColor(backgroundColor);
+
         colorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->  {
            if(result.getResultCode() == Activity.RESULT_OK) {
                assert result.getData() != null;
-               backgroundColor = PickColorActivity.fromBundle(result.getData().getExtras());
-               findViewById(android.R.id.content).getRootView().setBackgroundColor(backgroundColor.toArgb());
+               backgroundColor = result.getData().getExtras().getInt(PickColorActivity.COLOR);
+               findViewById(android.R.id.content).getRootView().setBackgroundColor(backgroundColor);
            }
         });
     }
@@ -91,13 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.menu_change_colors) {
             Intent intent = new Intent(this,PickColorActivity.class);
-            Bundle bundle = new Bundle();
-            PickColorActivity.storeColor(bundle,backgroundColor);
-            intent.putExtras(bundle);
+            intent.putExtra(PickColorActivity.COLOR,backgroundColor);
             colorLauncher.launch(intent);
         } else if (id ==  R.id.menu_about) {
 
-            startActivityWithBackground(new Intent(this,AppInfoActivity.class));
+            Intent intent = new Intent(this,AppInfoActivity.class);
+            intent.putExtra(PickColorActivity.COLOR,backgroundColor);
+            startActivity(intent);
         } else if (id == R.id.menu_share) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
@@ -110,20 +112,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    protected void startActivityWithBackground(Intent intent) {
-        Bundle bundle = new Bundle();
-        PickColorActivity.storeColor(bundle,backgroundColor);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
     @Override
     public void onClick(View view) {
         if (BUTTON_ENDPOINTS.containsKey(view.getId())) {
             String[] endpoint = BUTTON_ENDPOINTS.get(view.getId());
             Intent intent = new Intent(this, CharactersActivity.class);
             intent.putExtra(CharactersActivity.API_ENDPOINT, endpoint);
-            intent.putExtra(PickColorActivity.COLOR,backgroundColor.toArgb());
+            intent.putExtra(PickColorActivity.COLOR,backgroundColor);
             startActivity(intent);
         }
     }
@@ -131,6 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        PickColorActivity.storeColor(outState,backgroundColor);
+        outState.putInt(PickColorActivity.COLOR,backgroundColor);
     }
 }

@@ -17,6 +17,9 @@ public class AppInfoActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        int color = getIntent().getExtras().getInt(PickColorActivity.COLOR);
+        findViewById(android.R.id.content).getRootView().setBackgroundColor(color);
+
     }
 
     @Override

@@ -83,6 +83,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             super(itemView);
             this.adapter = adapter;
 
+            itemView.setBackgroundColor(color);
+
             itemView.setOnClickListener(this);
 
             textName = itemView.findViewById(R.id.character_text_name);
@@ -98,6 +100,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             intent.putExtra(CharacterDetailsActivity.KEY_CHARACTER, character);
             intent.putExtra(PickColorActivity.COLOR,color);
             adapter.context.startActivity(intent);
+
         }
 
         public void bindTo(Character character) {
