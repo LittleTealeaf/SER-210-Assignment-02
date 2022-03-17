@@ -28,10 +28,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     private final LruCache<String,Bitmap> imageCache;
     private final Context context;
 
+    private final int color;
+
     private final LayoutInflater mInflater;
     private final List<Character> mCharacterList;
 
-    public CharacterAdapter(Context context, List<Character> characterList) {
+    public CharacterAdapter(Context context, List<Character> characterList, int color) {
+        this.color = color;
         this.context = context;
         mInflater = LayoutInflater.from(context);
         mCharacterList = characterList;
@@ -93,6 +96,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         public void onClick(View view) {
             Intent intent = new Intent(adapter.context,CharacterDetailsActivity.class);
             intent.putExtra(CharacterDetailsActivity.KEY_CHARACTER, character);
+            intent.putExtra(PickColorActivity.COLOR,color);
             adapter.context.startActivity(intent);
         }
 

@@ -38,6 +38,10 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_details);
 
+
+        int color = PickColorActivity.fromBundle(getIntent().getExtras()).toArgb();
+        findViewById(android.R.id.content).getRootView().setBackgroundColor(color);
+
         imageView = findViewById(R.id.cd_image);
 
         character = getIntent().getParcelableExtra(KEY_CHARACTER);
@@ -56,8 +60,8 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
 
             setText(R.id.cd_name_alternates,builder.substring(2));
         }
-
         setText(R.id.cd_actor,"Played by: " + character.getActor());
+
 
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -73,25 +77,26 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
-
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+@Override
+public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    int id = item.getItemId();
 
-        if (MenuUtil.MENU_FUNCTIONS.getOrDefault(item.getItemId(),(n) -> false).apply(this)) {
-            return true;
-        } else if (id == R.id.menu_share) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "Harry Potter Info!\n" + character.toString());
-            intent.setType("text/plain");
-            startActivity(Intent.createChooser(intent, null));
-        }
+    if (id ==  R.id.menu_about) {
+        startActivity(new Intent(this, AppInfoActivity.class));
+    } else if (id == R.id.menu_share) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "Harry Potter Info!\n" + character.toString());
+        intent.setType("text/plain");
+        startActivity(Intent.createChooser(intent, null));
+    } else {
         return super.onOptionsItemSelected(item);
     }
+    return true;
+}
 
     private void hideElements(int... section) {
         for(int i : section) {

@@ -8,4 +8,6 @@
     <string name="non_wizards">All Characters</string>
     <string name="share">Share</string>
     <string name="invert_colors">Invert Colors</string>
+    <string name="color">Color</string>
+    <string name="set_background">Set Background</string>
 </resources>

@@ -2,10 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menu_invert_colors"
+    <item android:id="@+id/menu_change_colors"
             android:title="@string/invert_colors"
             android:icon="@drawable/ic_invert_colors"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="ifRoom"
+            android:visible="false"/>
 
     <item android:id="@+id/menu_share"
         android:title="@string/share"

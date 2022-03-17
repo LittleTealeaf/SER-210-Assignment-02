@@ -12,6 +12,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.HarryPotterCharacters">
         <activity
+                android:name=".app.PickColorActivity"
+                android:exported="false" />
+        <activity
                 android:name=".app.AppInfoActivity"
                 android:exported="false" />
         <activity
