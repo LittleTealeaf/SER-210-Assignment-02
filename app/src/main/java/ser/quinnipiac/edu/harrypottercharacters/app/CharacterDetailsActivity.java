@@ -17,17 +17,12 @@ import ser.quinnipiac.edu.harrypottercharacters.R;
 import ser.quinnipiac.edu.harrypottercharacters.async.LoadImageTask;
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
+/**
+ * @author Thomas Kwashnak
+ */
 public class CharacterDetailsActivity extends AppCompatActivity implements LoadImageTask.LoadImageListener {
 
     public static final String KEY_CHARACTER = "CHARACTER";
-
-    private static final int[] SECTION_WAND;
-
-    static {
-        SECTION_WAND = new int[]{
-//                R.id.cd_wand_title
-        };
-    }
 
     private Character character;
     private ImageView imageView;
@@ -37,13 +32,18 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_details);
 
+        //sets background color from the intent
         int color = getIntent().getExtras().getInt(PickColorActivity.COLOR);
+        //Finds the view by the root ID
         findViewById(android.R.id.content).getRootView().setBackgroundColor(color);
+
 
         imageView = findViewById(R.id.cd_image);
 
+        //Pulls the character details from the intent
         character = getIntent().getParcelableExtra(KEY_CHARACTER);
 
+        //If there is an image, send a load image async task
         if (!character.getImage().equals("")) {
             new LoadImageTask(this).execute(character.getImage());
         }
@@ -53,7 +53,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         if (character.getAlternateNames() != null && character.getAlternateNames().length > 0) {
             StringBuilder builder = new StringBuilder();
             for (String name : character.getAlternateNames()) {
-                builder.append(", " + name);
+                builder.append(", ").append(name);
             }
 
             setText(R.id.cd_name_alternates, builder.substring(2));
@@ -74,6 +74,12 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * Sets a text with a value only if the value is present. Includes a label
+     * @param id TextView ID
+     * @param label The label to put in front of the value if it exists
+     * @param value The value
+     */
     private void setTextWithLabel(int id, String label, String value) {
         if(value != null && !value.equals("")) {
             setText(id,label + value);
@@ -82,6 +88,11 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         }
     }
 
+    /**
+     * Sets a text with a value only if it exists
+     * @param id TextView ID
+     * @param text The value
+     */
     private void setText(int id, String text) {
         if (text != null && !text.equals("")) {
             ((TextView) findViewById(id)).setText(text);
@@ -90,9 +101,15 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         }
     }
 
+    /**
+     * Hides the given views
+     * @param section Views to make hidden
+     */
     private void hideElements(int... section) {
         for (int i : section) {
             findViewById(i).setVisibility(View.GONE);
+
+            //Make text size 0 if it is a TextView
             if(findViewById(i) instanceof TextView) {
                 ((TextView) findViewById(i)).setTextSize(0);
             }
@@ -120,6 +137,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
             intent.putExtra(PickColorActivity.COLOR, getIntent().getExtras().getInt(PickColorActivity.COLOR));
             startActivity(intent);
         } else if (id == R.id.menu_share) {
+            //Put the character.toString() as the content
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, "Harry Potter Info!\n" + character.toString());
@@ -131,6 +149,10 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
         return true;
     }
 
+    /**
+     * Loads the bitmap to the image view
+     * @param bitmap Image to load
+     */
     @Override
     public void onLoadImage(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);

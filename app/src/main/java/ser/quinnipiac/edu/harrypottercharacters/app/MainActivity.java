@@ -19,17 +19,24 @@ import java.util.Map;
 
 import ser.quinnipiac.edu.harrypottercharacters.R;
 
+/**
+ * @author Thomas Kwashnak
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    /**
+     * Map of IDs to the endpoints that each button uses
+     */
     private static final Map<Integer, String[]> BUTTON_ENDPOINTS;
+    /**
+     * Array of all button IDs
+     */
     private static final int[] BUTTON_IDS;
 
-    public static boolean DARK_MODE = false;
-
-    private Color backgroundcolorold;
     private int backgroundColor;
 
     static {
+
         BUTTON_IDS = new int[]{
                 R.id.button_house_gryffindor,
                 R.id.button_house_slytherin,
@@ -58,18 +65,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
+        //Sets their onClickListener to this activity
         for (int id : BUTTON_IDS) {
             findViewById(id).setOnClickListener(this);
         }
 
+        //If there is no saved instance state, use the default white background, otherwise pull from the background color
         if(savedInstanceState != null) {
             backgroundColor = getIntent().getExtras().getInt(PickColorActivity.COLOR);;
         } else {
             backgroundColor = Color.WHITE;
         }
 
+        //Set background color
         findViewById(android.R.id.content).getRootView().setBackgroundColor(backgroundColor);
 
+        //Register activity to update the backgroundColor when the color settings activity returns the value
         colorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->  {
            if(result.getResultCode() == Activity.RESULT_OK) {
                assert result.getData() != null;
@@ -82,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+        //set the color option to be visible
         menu.findItem(R.id.menu_change_colors).setVisible(true);
 
         return true;
@@ -114,7 +128,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        //If the endpoints contains the key
         if (BUTTON_ENDPOINTS.containsKey(view.getId())) {
+
+            //Create an intent with the endpoint value set
             String[] endpoint = BUTTON_ENDPOINTS.get(view.getId());
             Intent intent = new Intent(this, CharactersActivity.class);
             intent.putExtra(CharactersActivity.API_ENDPOINT, endpoint);
@@ -126,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        //Save the current color
         outState.putInt(PickColorActivity.COLOR,backgroundColor);
     }
 }

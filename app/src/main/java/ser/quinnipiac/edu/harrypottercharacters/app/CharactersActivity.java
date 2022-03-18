@@ -18,6 +18,9 @@ import ser.quinnipiac.edu.harrypottercharacters.R;
 import ser.quinnipiac.edu.harrypottercharacters.async.FetchCharactersTask;
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
+/**
+ * @author Thomas Kwashnak
+ */
 public class CharactersActivity extends AppCompatActivity implements FetchCharactersTask.FetchCharactersListener {
 
     public static final String CHARACTER_LIST, API_ENDPOINT;
@@ -35,9 +38,11 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characters);
 
+        //Sets up recycler view
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Sets background colors from intent
         int color = getIntent().getExtras().getInt(PickColorActivity.COLOR);
         findViewById(android.R.id.content).getRootView().setBackgroundColor(color);
         mRecyclerView.setBackgroundColor(color);
@@ -46,6 +51,7 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
 
         mRecyclerView.setAdapter(mAdapter);
 
+        //If a previous save state is present, pull characters from there, otherwise pull from a new FetchCharactersTask
         if (savedInstanceState != null) {
             onFetchCharacters(savedInstanceState.getParcelableArrayList(CHARACTER_LIST));
         } else {
@@ -59,6 +65,10 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * Clears and repopulates the character list, and then notifies the adapter of a dataset change
+     * @param characters
+     */
     @Override
     public void onFetchCharacters(Collection<Character> characters) {
         characterList.clear();
@@ -75,7 +85,6 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -103,6 +112,7 @@ public class CharactersActivity extends AppCompatActivity implements FetchCharac
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        //Save the list of characters in the outState so another fetch isn't needed
         outState.putParcelableArrayList(CHARACTER_LIST, characterList);
     }
 }

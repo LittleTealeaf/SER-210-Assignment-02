@@ -17,22 +17,18 @@ import java.util.List;
 
 import ser.quinnipiac.edu.harrypottercharacters.data.Character;
 
+/**
+ * @author Thomas Kwashnak
+ */
 public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Character>> {
 
+    //Base url
     private static final String BASE_URL = "https://hp-api.herokuapp.com/api";
 
     private final FetchCharactersListener listener;
 
     public FetchCharactersTask(FetchCharactersListener listener) {
         this.listener = listener;
-    }
-
-    protected String buildURL(String... endpoint) {
-        StringBuilder builder = new StringBuilder(BASE_URL);
-        for(String string : endpoint) {
-            builder.append('/').append(string);
-        }
-        return builder.toString();
     }
 
     @Override
@@ -42,7 +38,8 @@ public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Chara
         StringBuffer jsonString = new StringBuffer();
 
         try {
-            URL url = new URL(buildURL(strings));
+            //Loads the data from the api to the jsonString
+            URL url = new URL(BASE_URL + "/" + String.join("/",strings));
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
 
@@ -64,6 +61,7 @@ public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Chara
         } catch(Exception e) {
             e.printStackTrace();
         }
+        //Returns the Character Collection from the jsonString
         return convertJson(jsonString.toString());
     }
 
@@ -71,13 +69,18 @@ public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Chara
     protected void onPostExecute(Collection<Character> people) {
         super.onPostExecute(people);
 
-        if(people != null) {
+        //If there is a list of people, and there is a listener
+        if(people != null && listener != null) {
+            //Tell the listener that we have people!
             listener.onFetchCharacters(people);
-        } else {
-            System.out.println("NULL");
         }
     }
 
+    /**
+     * Attempts to convert a json string to a collection of characters
+     * @param json String json
+     * @return Collection of Characters, null if an exception was reached
+     */
     private Collection<Character> convertJson(String json) {
         try {
             Collection<Character> characters = new ArrayList<>();
@@ -94,6 +97,10 @@ public class FetchCharactersTask extends AsyncTask<String,Void, Collection<Chara
         }
     }
 
+    /**
+     * @author Thomas Kwashnak
+     * Allows the ability to be used as a listener for a FetchCharacterTask
+     */
     public interface FetchCharactersListener {
         void onFetchCharacters(Collection<Character> list);
     }
