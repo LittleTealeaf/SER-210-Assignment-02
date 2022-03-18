@@ -10,4 +10,9 @@
     <string name="invert_colors">Invert Colors</string>
     <string name="color">Pick Your Color</string>
     <string name="set_background">Set Background</string>
+    <string name="author">By Thomas Kwashnak</string>
+    <string name="api_information">API Information</string>
+    <string name="tealeaf_github">https://github.com/LittleTealeaf</string>
+    <string name="api_authors">Created by Kostas, Beth Fraser, Nigel Gee, and Marcos</string>
+    <string name="api_github">https://github.com/KostaSav/hp-api</string>
 </resources>

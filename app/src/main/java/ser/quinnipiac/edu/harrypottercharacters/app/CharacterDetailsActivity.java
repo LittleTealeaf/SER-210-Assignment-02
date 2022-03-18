@@ -57,11 +57,29 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
             }
 
             setText(R.id.cd_name_alternates, builder.substring(2));
+        } else {
+            hideElements(R.id.cd_name_alternates);
         }
-        setText(R.id.cd_actor, "Played by: " + character.getActor());
+
+        setText(R.id.cd_house,character.getHouse());
+
+        setTextWithLabel(R.id.cd_actor, "Played by: " ,character.getActor());
+
+        setTextWithLabel(R.id.cd_birthdate,"Birthday: ",character.getDateOfBirth());
+        setTextWithLabel(R.id.cd_ancestry,"Ancestry: ",character.getAncestry());
+        setTextWithLabel(R.id.cd_patronus,"Patronus: ",character.getPatronus());
+
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setTextWithLabel(int id, String label, String value) {
+        if(value != null && !value.equals("")) {
+            setText(id,label + value);
+        } else {
+            hideElements(id);
+        }
     }
 
     private void setText(int id, String text) {
@@ -75,6 +93,9 @@ public class CharacterDetailsActivity extends AppCompatActivity implements LoadI
     private void hideElements(int... section) {
         for (int i : section) {
             findViewById(i).setVisibility(View.GONE);
+            if(findViewById(i) instanceof TextView) {
+                ((TextView) findViewById(i)).setTextSize(0);
+            }
         }
     }
 

@@ -4,10 +4,55 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
         tools:context=".app.AppInfoActivity">
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:fontFamily="casual"
+            android:layout_height="wrap_content"
+        android:textAlignment="center"
+            android:textSize="20sp"
+        android:text="@string/author" />
+    <TextView
+            android:layout_width="match_parent"
+            android:fontFamily="casual"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:text="@string/tealeaf_github" />
+    <TextView
+            android:layout_width="match_parent"
+            android:fontFamily="casual"
+            android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/api_information"
+            android:paddingTop="50dp"
+            android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+
+        android:text="HP-API"
+        android:textSize="25sp"
+            android:textAlignment="center"
+        />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@string/api_authors"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@string/api_github"/>
 
 </LinearLayout>
